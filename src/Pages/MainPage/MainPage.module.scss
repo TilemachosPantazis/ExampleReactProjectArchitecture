@@ -1,0 +1,53 @@
+
+.clockIcon{
+  font-weight: 600;
+}
+
+.mainBody{
+  background-color: aliceblue;
+}
+
+.contentsOfMainBody{
+  padding: 50px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.welcomingSection {
+  float: left;
+  text-align: left;
+}
+
+.card {
+  border: 1px blue solid;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardSectionTitle {
+  border-left: 3px blue solid;
+  font-weight: 600;
+  padding-left: 6px;
+  float: left;
+}
+
+.cardSectionTitleBorderGreen {
+  border-left: 3px green solid;
+  font-weight: 600;
+  padding-left: 6px;
+  float: left;
+}
+
+.cardSectionTitleBorderTurquoise {
+  border-left: 3px turquoise solid;
+  font-weight: 600;
+  padding-left: 6px;
+  float: left;
+}
