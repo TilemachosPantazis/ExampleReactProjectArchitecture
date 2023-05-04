@@ -1,10 +1,10 @@
 # ExampleReactProject
 
 Run with 
-###npm start
+###`npm start`
 
 Make sure everything is in sync with
-###npm install.
+###`npm install`.
 
 I use functional components where the components have their own SCSS module.
 I also use a combination of patterns, for example the provider pattern. I will describe my usual architecture with a few words.
