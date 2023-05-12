@@ -5,7 +5,7 @@ import {
   IconButton,
   SelectableOptionMenuItemType,
 } from '@fluentui/react';
-import { NXTLVLAI } from './NXTLVLAI/NXTLVLAI';
+import { AIInsights } from './AIInsights/AIInsights';
 import { TopSection } from '../../SharedComponents/TopSection/TopSection';
 
 const sessionOptions: IComboBoxOption[] = [
@@ -50,7 +50,7 @@ export function MainPage() {
           </div>
           <div className={styles.card}>
             <div className={styles.cardTop}>
-              <h3 className={styles.cardSectionTitle}>NXTLVL AI</h3>
+              <h3 className={styles.cardSectionTitle}>AI</h3>
               <IconButton
                 iconProps={{ iconName: expandAISection? 'ChevronDown' : 'ChevronUp' }}
                 aria-label="collapse/expand"
@@ -59,7 +59,7 @@ export function MainPage() {
             </div>
             {expandAISection &&
               (
-                <NXTLVLAI />
+                <AIInsights />
               )
             }
           </div>

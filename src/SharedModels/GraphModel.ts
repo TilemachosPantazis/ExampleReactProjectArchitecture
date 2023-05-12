@@ -32,3 +32,25 @@ export enum Tag {
     Collaboration,
     Communication
 }
+
+export interface ISnapshot {
+    StartTime: Date;
+    EndTime: Date;
+    SnapshotUID: string;
+    ThumnailURL: string;
+    Tag: Tag;
+    PupilUID: string;
+    Session: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+

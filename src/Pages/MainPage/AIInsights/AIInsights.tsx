@@ -1,16 +1,15 @@
 
 import { DefaultButton, Icon, Spinner } from '@fluentui/react';
-import styles from './NXTLVLAI.module.scss';
+import styles from './AIInsights.module.scss';
 import { Graph } from '../../../SharedComponents/Graph/Graph';
 import { useCallback, useState } from 'react';
-import ReactPlayer from 'react-player';
 import { useDispatch } from 'react-redux';
 import { exampleAction } from '../Utils/MainPageActions';
 import { FilterOptions, IFilterOptions } from '../../../SharedModels/FilterModels';
 import { useSelector } from 'react-redux';
 import { getDataHasBeenLoadedSelector } from '../Utils/MainPageSelectors';
 
-export function NXTLVLAI() {
+export function AIInsights() {
     const [filter, setFilterContent] = useState(new FilterOptions());
     const dispatch = useDispatch();
     const dataIsLoaded = useSelector(getDataHasBeenLoadedSelector);
@@ -40,36 +39,36 @@ export function NXTLVLAI() {
                 <div className={styles.filters}>
                     <div className={styles.filtersColumn}>
                         <DefaultButton
-                        className={filter.Leadership ? styles.selectedFilter : styles.unselectedFilter}
-                        text="Leadership"
-                        onClick={() => setFilter({...filter, Leadership: !filter.Leadership})}
+                            className={filter.Leadership ? styles.selectedFilter : styles.unselectedFilter}
+                            text="Leadership"
+                            onClick={() => setFilter({...filter, Leadership: !filter.Leadership})}
                         />
                         <DefaultButton
-                        className={filter.Communication ? styles.selectedFilter : styles.unselectedFilter} 
-                        text="Communication"
-                        onClick={() => setFilter({...filter, Communication: !filter.Communication})}
+                            className={filter.Communication ? styles.selectedFilter : styles.unselectedFilter} 
+                            text="Communication"
+                            onClick={() => setFilter({...filter, Communication: !filter.Communication})}
                         />
                         <DefaultButton
-                        className={filter.Collaboration ? styles.selectedFilter : styles.unselectedFilter} 
-                        text="Collaboration"
-                        onClick={() => setFilter({...filter, Collaboration: !filter.Collaboration})}
+                            className={filter.Collaboration ? styles.selectedFilter : styles.unselectedFilter} 
+                            text="Collaboration"
+                            onClick={() => setFilter({...filter, Collaboration: !filter.Collaboration})}
                         />
                     </div>
                     <div className={styles.filtersColumn}>
                         <DefaultButton
-                        className={filter.SelfAwareness ? styles.selectedFilter : styles.unselectedFilter} 
-                        text="SelfAwareness"
-                        onClick={() => setFilter({...filter, SelfAwareness: !filter.SelfAwareness})}
+                            className={filter.SelfAwareness ? styles.selectedFilter : styles.unselectedFilter} 
+                            text="SelfAwareness"
+                            onClick={() => setFilter({...filter, SelfAwareness: !filter.SelfAwareness})}
                         />
                         <DefaultButton
-                        className={filter.TeamWork ? styles.selectedFilter : styles.unselectedFilter} 
-                        text="TeamWork"
-                        onClick={() => setFilter({...filter, TeamWork: !filter.TeamWork})}
+                            className={filter.TeamWork ? styles.selectedFilter : styles.unselectedFilter} 
+                            text="TeamWork"
+                            onClick={() => setFilter({...filter, TeamWork: !filter.TeamWork})}
                         />
                         <DefaultButton
-                        className={filter.Recilience ? styles.selectedFilter : styles.unselectedFilter} 
-                        text="Recilience"
-                        onClick={() => setFilter({...filter, Recilience: !filter.Recilience})}
+                            className={filter.Recilience ? styles.selectedFilter : styles.unselectedFilter} 
+                            text="Recilience"
+                            onClick={() => setFilter({...filter, Recilience: !filter.Recilience})}
                         />
                     </div>
                 </div>
@@ -84,15 +83,6 @@ export function NXTLVLAI() {
                     </div>
                     : <Spinner/>
                 }
-                <div className='player-wrapper'>
-                    <ReactPlayer
-                        className='react-player fixed-bottom'
-                        url= '_assets/videos/video.MP4'
-                        width='100%'
-                        height='100%'
-                        controls = {true}
-                    />
-                </div>
             </div>
         </div>
     )
