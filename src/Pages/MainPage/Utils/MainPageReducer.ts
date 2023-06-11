@@ -1,16 +1,20 @@
 import { LoadingStateEnum } from "../../../SharedModels/LoadingStates";
 import { IDefaultAction } from "../../../Utils/RootSagas";
-import { ExampleActions } from "./MainPageActions";
+import { ExampleActions, GetAddressActions } from "./MainPageActions";
 
 
 export interface MainPageState {
   ExampleDataState: LoadingStateEnum;
   ExampleData: boolean;
+  GetAddressState: LoadingStateEnum;
+  FullAddress: any[];
 }
 
 export const initialLoginState: MainPageState = {
     ExampleData: false,
-    ExampleDataState: LoadingStateEnum.InitialState
+    ExampleDataState: LoadingStateEnum.InitialState,
+    FullAddress: [],
+    GetAddressState: LoadingStateEnum.InitialState
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -33,6 +37,22 @@ export default (state = initialLoginState, action: IDefaultAction): MainPageStat
         return {
           ...state,
           ExampleDataState: LoadingStateEnum.ErrorState,
+        };
+      case GetAddressActions.GET_ADDRESS:
+        return {
+          ...state,
+          GetAddressState: LoadingStateEnum.LoadingState,
+        };
+      case GetAddressActions.GET_ADDRESS_SUCCESS:
+        return {
+          ...state,
+          GetAddressState: LoadingStateEnum.LoadedState,
+          FullAddress: action.payload.results,
+        };
+      case GetAddressActions.GET_ADDRESS_FAIL:
+        return {
+          ...state,
+          GetAddressState: LoadingStateEnum.ErrorState,
         };
     default:
       return {

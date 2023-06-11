@@ -2,12 +2,13 @@ import { all, call, put, takeLatest } from '@redux-saga/core/effects';
 import { AxiosResponse } from 'axios';
 import { ErrorPayload } from '../../../SharedModels/ErrorPayload';
 
-import { exampleApiCall } from './MainPageService';
-import { ExampleActions, IExampleAction, exampleActionFail, exampleActionSuccess } from './MainPageActions';
+import { exampleApiCall, getAddressApiCall } from './MainPageService';
+import { ExampleActions, GetAddressActions, IExampleAction, IGetAddressAction, exampleActionFail, exampleActionSuccess, getAddressActionFail, getAddressActionSuccess } from './MainPageActions';
 
 function* mainPageSaga() {
   yield all([
     takeLatest(ExampleActions.EXAMPLE, exampleCall),
+    takeLatest(GetAddressActions.GET_ADDRESS, getAddress),
   ]);
 }
 
@@ -31,3 +32,21 @@ function* exampleCall(action: IExampleAction) {
     };
     yield put(exampleActionFail(new ErrorPayload()));
   }
+
+  function* getAddress(action: IGetAddressAction) {
+    try {
+      const fullAddress: AxiosResponse<any> = yield call(() => getAddressApiCall(action.payload));
+      console.log("dss", fullAddress)
+      yield put(getAddressActionSuccess(fullAddress?.data));
+    } catch (e: any) {
+  /*     const error: IErrorPayload = {
+        Error: {
+          Type: e?.response?.data?.type,
+          Title: 'Something went wrong',
+          Message: e?.response?.data?.LogiSnapErrorMessage || e?.response?.data?.message,
+          ErrorCode: e?.response?.status,
+          UID: e?.response?.data?.UID,
+        }, */
+      };
+      yield put(getAddressActionFail(new ErrorPayload()));
+    }
