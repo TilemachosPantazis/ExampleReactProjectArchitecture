@@ -7,6 +7,12 @@ export enum ExampleActions {
   EXAMPLE_FAIL = 'EXAMPLE_FAIL'
 }
 
+export enum GetAddressActions {
+  GET_ADDRESS = 'GET_ADDRESS',
+  GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS',
+  GET_ADDRESS_FAIL = 'GET_ADDRESS_FAIL'
+}
+
 export interface IExampleAction {
   type: typeof ExampleActions.EXAMPLE;
   payload: IFilterOptions;
@@ -28,5 +34,33 @@ export const exampleActionSuccess = (): IExampleActionSuccess => ({
 });
 export const exampleActionFail = (error: IErrorPayload): IExampleActionFail => ({
   type: ExampleActions.EXAMPLE_FAIL,
+  payload: error,
+});
+
+export interface IGetAddressAction {
+  type: typeof GetAddressActions.GET_ADDRESS;
+  payload: string;
+}
+export interface IGetAddressActionSuccess {
+  type: typeof GetAddressActions.GET_ADDRESS_SUCCESS;
+  payload: any;
+}
+export interface IGetAddressActionFail {
+  type: typeof GetAddressActions.GET_ADDRESS_FAIL;
+  payload: IErrorPayload;
+}
+
+
+export const getAddressAction = (address: string): IGetAddressAction => ({
+  type: GetAddressActions.GET_ADDRESS,
+  payload: address,
+});
+
+export const getAddressActionSuccess = (fullAddress: any): IGetAddressActionSuccess => ({
+  type: GetAddressActions.GET_ADDRESS_SUCCESS,
+  payload: fullAddress
+});
+export const getAddressActionFail = (error: IErrorPayload): IGetAddressActionFail => ({
+  type: GetAddressActions.GET_ADDRESS_FAIL,
   payload: error,
 });

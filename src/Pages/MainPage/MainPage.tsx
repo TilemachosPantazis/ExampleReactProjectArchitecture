@@ -7,6 +7,7 @@ import {
 } from '@fluentui/react';
 import { AIInsights } from './AIInsights/AIInsights';
 import { TopSection } from '../../SharedComponents/TopSection/TopSection';
+import { MapSearch } from './MapSearch/MapSearch';
 
 const sessionOptions: IComboBoxOption[] = [
   { key: 'Header1', text: 'This month', itemType: SelectableOptionMenuItemType.Header },
@@ -31,6 +32,7 @@ export function MainPage() {
   const [session, setSession] = useState("");
   const [pupil, setPupil] = useState(pupilOptions?.[0].key);
   const [expandAISection, setExpandAISection] = useState(true);
+  const [expandMapSection, setExpandMapSection] = useState(true);
 
   return (
      <div>
@@ -47,6 +49,21 @@ export function MainPage() {
           <div className={styles.welcomingSection}>
             <h1>Hello {pupil}</h1>
             <>Follow {pupil}'s progress and be part of his/her journey.</>
+          </div>
+          <div className={styles.card}>
+            <div className={styles.cardTop}>
+              <h3 className={styles.cardSectionTitle}>Search session locations</h3>
+              <IconButton
+                iconProps={{ iconName: expandMapSection? 'ChevronDown' : 'ChevronUp' }}
+                aria-label="collapse/expand"
+                onClick={() => setExpandMapSection(!expandMapSection)}
+              />
+            </div>
+            {expandMapSection &&
+              (
+                <MapSearch />
+              )
+            }
           </div>
           <div className={styles.card}>
             <div className={styles.cardTop}>
