@@ -51,3 +51,12 @@
   padding-left: 6px;
   float: left;
 }
+
+.actionsInCard{
+  display: flex;
+  flex-direction: row;
+}
+
+.emoji{
+  width: 20px;
+}

@@ -1,13 +1,18 @@
 import styles from './MainPage.module.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
+  DefaultButton,
+  IButtonProps,
   IComboBoxOption,
   IconButton,
   SelectableOptionMenuItemType,
+  TeachingBubble,
+  TextField,
 } from '@fluentui/react';
 import { AIInsights } from './AIInsights/AIInsights';
 import { TopSection } from '../../SharedComponents/TopSection/TopSection';
-import { MapSearch } from './MapSearch/MapSearch';
+import { useId } from '@fluentui/react-hooks';
+import { ThumbsUp, ThumbsDown } from 'fluent-emoji'
 
 const sessionOptions: IComboBoxOption[] = [
   { key: 'Header1', text: 'This month', itemType: SelectableOptionMenuItemType.Header },
@@ -28,11 +33,36 @@ const pupilOptions: IComboBoxOption[] = [
   { key: 'Cassandra', text: 'Cassandra' },
 ];
 
+
 export function MainPage() {
   const [session, setSession] = useState("");
   const [pupil, setPupil] = useState(pupilOptions?.[0].key);
   const [expandAISection, setExpandAISection] = useState(true);
+  const [commentAISection, setCommentAISection] = useState(false);
+  const [activeComment, setActiveComment] = useState("");
+  const [commentsInAiSection, setCommentsInAiSection] = useState<string[]>([]);
   const [expandMapSection, setExpandMapSection] = useState(true);
+  const targetButton = useRef<HTMLDivElement>(null);
+  const buttonId = useId('targetButton');
+
+  const buttonProps: IButtonProps = {
+    text: 'Save',
+    onClick: () =>{
+      setCommentAISection(false);
+      if(!!activeComment){
+        setCommentsInAiSection(commentsInAiSection?.concat([activeComment]));
+      }
+      setActiveComment("");
+    } 
+  };
+  
+  const buttonPropsCancel: IButtonProps = {
+    text: 'Cancel',
+    onClick: () =>{
+      setCommentAISection(false);
+      setActiveComment("");
+    } 
+  };
 
   return (
      <div>
@@ -59,20 +89,49 @@ export function MainPage() {
                 onClick={() => setExpandMapSection(!expandMapSection)}
               />
             </div>
-            {expandMapSection &&
+{/*             {expandMapSection &&
               (
                 <MapSearch />
               )
-            }
+            } */}
           </div>
           <div className={styles.card}>
             <div className={styles.cardTop}>
               <h3 className={styles.cardSectionTitle}>AI</h3>
-              <IconButton
-                iconProps={{ iconName: expandAISection? 'ChevronDown' : 'ChevronUp' }}
-                aria-label="collapse/expand"
-                onClick={() => setExpandAISection(!expandAISection)}
-              />
+              <div className={styles.actionsInCard}>
+                <div className={'buttonContainer'} ref={targetButton}>
+                  <DefaultButton
+                    id={buttonId}
+                    onClick={() => setCommentAISection(!commentAISection)}
+                    text={commentAISection ? 'Hide comment' : `Show comments ${commentsInAiSection.length}` } />
+                </div>
+                {commentAISection && (
+                  <TeachingBubble
+                    target={`#${buttonId}`}
+                    primaryButtonProps={buttonProps}
+                    secondaryButtonProps={buttonPropsCancel}
+                    onDismiss={() => setCommentAISection(!commentAISection)}
+                    headline="Comment on this section"
+                    calloutProps={{preventDismissOnEvent:()=> {return true}}}                    
+                  >
+                    {commentsInAiSection.map(function(comment) {
+                        return (
+                          <div>
+                            {comment}
+                            {((comment.includes("thumbs") && comment.includes("up")) || comment.includes("I like")) && <ThumbsUp className={styles.emoji}/>}
+                            {((comment.includes("thumbs") && comment.includes("down")) || comment.includes("I do not like")) && <ThumbsDown className={styles.emoji}/>}
+                          </div>
+                        )
+                      })}
+                    <TextField multiline rows={3} value={activeComment} onChange={(e,value) => setActiveComment(value||"")} />
+                </TeachingBubble>
+                )}
+                <IconButton
+                  iconProps={{ iconName: expandAISection? 'ChevronDown' : 'ChevronUp' }}
+                  aria-label="collapse/expand"
+                  onClick={() => setExpandAISection(!expandAISection)}
+                />
+              </div>
             </div>
             {expandAISection &&
               (
